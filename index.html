@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="敘事圖卡">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#172c36">
+  <meta name="description" content="貼上劇情文字，調整字體與色彩，製作適合手機閱讀的圖卡。">
+  <title>敘事圖卡｜劇情排版工具</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23172c36'/%3E%3Cpath d='M18 18h28v28H18z' fill='none' stroke='%23e6c993' stroke-width='3'/%3E%3Cpath d='M25 27h14M25 34h14M25 41h9' stroke='%23e6c993' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css?v=20261114-optimize">
+</head>
+<body>
+  <div class="author-banner"><span class="author-credit">作者：<strong>懧雃</strong></span><span class="author-disclaimer">僅供懧雃自娛自樂用</span></div>
+  <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">▤</span><span>敘事圖卡</span></div><span class="top-note">內容只在此裝置處理</span></header>
+  <main class="workspace">
+    <section class="controls" aria-label="圖卡編輯">
+      <div class="intro"><span class="overline">STORY CARDS</span><h1>把故事，排成好讀的圖卡。</h1><p>貼上劇情，預覽會自動更新；調整閱讀樣式後即可儲存圖片。</p></div>
+      <div class="section-heading"><span class="step">01</span><h2>文字內容</h2></div>
+      <label class="field title-field" for="storyTitle">故事標題<input id="storyTitle" type="text" maxlength="100" placeholder="例如：月光下的約定" autocomplete="off"></label>
+      <label class="field" for="story">劇情文字</label>
+      <textarea id="story" placeholder="在這裡貼上劇情文字。&#10;每一行會排成一個段落。" spellcheck="false"></textarea>
+      <div class="story-meta"><p class="hint">支援 <code>*淺色文字*</code>、行首 <code>&gt; 引用</code>、獨立一行 <code>---</code> 分隔線；要顯示星號本身請打 <code>\*</code>。</p><span id="storyCount" class="story-count">0 字</span></div>
+      <div class="section-heading settings-heading"><span class="step">02</span><h2>閱讀樣式</h2></div>
+      <div class="presets" id="sizePresets" aria-label="常用尺寸"><button type="button" data-w="1080" data-h="1350">貼文 4:5</button><button type="button" data-w="1080" data-h="1440">直式 3:4</button><button type="button" data-w="1080" data-h="1920">限動 9:16</button><button type="button" data-w="1080" data-h="1080">正方 1:1</button></div>
+      <div class="field-grid"><label class="field">圖卡寬度 <span>px</span><input id="width" type="number" min="480" max="2000" step="10" value="1080"></label><label class="field">圖卡高度 <span>px</span><input id="height" type="number" min="500" max="4000" step="10" value="1440"></label></div>
+      <div class="field-grid"><label class="field">文字大小 <span>px</span><input id="fontSize" type="number" min="20" max="100" value="42"></label><label class="field">字體<select id="font"><option value="sans">柔和黑體</option><option value="serif">典雅明體</option><option value="round">圓體</option><option value="mono">等寬字體</option></select></label></div>
+      <label class="field range-label">行距 <output id="lineHeightValue">1.7 倍</output><input id="lineHeight" type="range" min="1.3" max="2.4" step="0.05" value="1.7"></label>
+      <label class="field range-label">四周留白 <output id="paddingValue">96 px</output><input id="padding" type="range" min="40" max="200" value="96"></label>
+      <label class="check"><input id="indent" type="checkbox"> 段落首行縮排兩個字</label>
+      <label class="check"><input id="fixedHeight" type="checkbox" checked> 每張圖卡都使用設定的高度（尺寸一致）</label>
+      <div class="field theme-field">配色主題<div class="themes" id="themes"><button type="button" data-bg="#f8f7f3" data-ink="#273348" data-light="#8792a1">米白</button><button type="button" data-bg="#f3e9d2" data-ink="#4a3b2a" data-light="#a08a6b">羊皮紙</button><button type="button" data-bg="#fbf0f0" data-ink="#4d3440" data-light="#b38c99">櫻粉</button><button type="button" data-bg="#eef5f1" data-ink="#25423a" data-light="#7f9d93">薄荷</button><button type="button" data-bg="#1e252d" data-ink="#e8e2d6" data-light="#8d98a5">夜間</button></div></div>
+      <div class="colors"><label class="field">背景色<input id="bg" type="color" value="#f8f7f3"></label><label class="field">文字色<input id="ink" type="color" value="#273348"></label><label class="field">輔助色<input id="light" type="color" value="#8792a1"></label></div>
+      <div class="section-heading watermark-heading"><span class="step">03</span><h2>浮水印</h2></div>
+      <label class="field watermark-picker" for="watermarkFile">上傳圖片<input id="watermarkFile" type="file" accept="image/png,image/jpeg,image/webp,image/heic,image/heif"></label>
+      <div class="watermark-selection"><img id="watermarkThumb" alt="目前的浮水印圖片" hidden><span id="watermarkStatus">尚未選擇圖片</span><button type="button" id="removeWatermark" hidden>移除</button></div>
+      <label class="field range-label watermark-opacity" for="watermarkOpacity">浮水印不透明度 <output id="watermarkOpacityValue" for="watermarkOpacity">15%</output><input id="watermarkOpacity" type="range" min="0" max="100" value="15" disabled></label>
+      <p class="hint watermark-hint">0% 完全透明，100% 完全不透明。</p>
+      <label class="field range-label watermark-size" for="watermarkSize">浮水印圖片大小 <output id="watermarkSizeValue" for="watermarkSize">50%</output><input id="watermarkSize" type="range" min="0" max="100" value="50" disabled></label>
+      <p class="hint watermark-size-hint">0% 最小，50% 原始顯示大小，100% 放大；圖片保持原比例。</p>
+      <button class="primary" id="generate">產生／更新圖卡</button><p id="message" class="message" role="status" aria-live="polite"></p>
+      <div class="draft-tools"><span id="draftStatus" role="status" aria-live="polite">內容會自動暫存在此裝置</span><button type="button" id="clearDraft">清除暫存</button></div>
+    </section>
+    <section class="preview" aria-label="圖卡預覽">
+      <div class="preview-header"><div><span class="overline">PREVIEW</span><h2>圖卡預覽</h2></div><span id="resultCount" class="count">尚未產生</span></div>
+      <p class="split-hint">在連續預覽中調整切線。展開下方的單張輸出效果，可查看標題、頁碼與浮水印。</p>
+      <div class="cut-actions"><button id="addCut" disabled>新增切割線</button><button id="removeCut" disabled>移除切割線</button><button id="resetCuts" disabled>重新自動切割</button></div>
+      <div class="preview-body"><div class="card-frame" id="cardFrame"><div id="emptyPreview" class="empty-preview"><span class="empty-glyph" aria-hidden="true">▤</span><strong>你的故事，從這裡開始</strong><span>貼上文字後，按「產生圖卡」查看效果</span></div><canvas id="pageCanvas" hidden aria-label="整篇故事的連續預覽"></canvas><div id="cutLayer" class="cut-layer" hidden></div></div></div>
+      <div class="preview-footer"><div class="page-controls"><button id="prev" disabled aria-label="上一張圖卡">←</button><span id="pageLabel">—</span><button id="next" disabled aria-label="下一張圖卡">→</button></div><details class="export-preview" id="exportPreview"><summary>查看目前這張的輸出效果</summary><canvas id="exportCanvas" hidden aria-label="含故事標題、頁碼與浮水印的單張圖卡預覽"></canvas></details><div class="download-actions"><button id="share" disabled>分享／儲存此張</button><button id="downloadPage" disabled>下載此張 PNG</button><button id="downloadAll" disabled>儲存全部圖片</button></div><p class="save-hint">在 iPhone 點「儲存全部圖片」後，從分享選單選「儲存圖片」；若裝置不支援，會下載 ZIP。</p></div>
+    </section>
+  </main>
+  <script src="app.js?v=20261114-optimize"></script>
+</body>
+</html>
